@@ -1,22 +1,31 @@
 import keyboard
-from pip import main
 from tkintertemplate import *
-from tkinter import mainloop, messagebox
-import time
-countdown = "0"
-def on_closing():
-     if messagebox.askokcancel("Quit", "Do you want to quit?"):
-        window.destroy() 
-def countdown_timer():
-    global countdown
-    countdown = str(int(countdown)+1)
-    countdown_display.config(text = countdown)
-    window.after(1000,countdown_timer)
-    
-countdown_display = tk.Label(
-    text = countdown
+
+x="|"
+y="0"
+def count():
+    global y
+    y=str(int(y)+1)
+    countdown.config(text=y)
+    window.after(1000,count)
+def ask():
+    global x
+    while True:
+        if keyboard.is_pressed('q'):
+            x="q "+x
+            display.config(display(text=x))
+        if keyboard.is_pressed("esc"):
+            window.destroy()
+display = tk.Label(
+    text=x
 )
-countdown_display.pack()
-window.protocol("WM_DELETE_WINDOW", on_closing)
-countdown_timer()
+countdown = tk.Label(
+    text=y
+)
+countdown.pack()
+display.pack()
+count()
 window.mainloop()
+ask()
+
+
